@@ -44,7 +44,7 @@ class Kwork():
             password_input.send_keys(self.password)
             self.driver.find_element(By.CSS_SELECTOR,
                 'button[class="signin-signup__content-button kw-button kw-button--size-40 kw-button--green"]').click()
-            sleep(2)
+            sleep(5)
             # Добавляем куки в браузер
             cookies = self.driver.get_cookies()
             for cookie in cookies:
@@ -71,7 +71,6 @@ class Kwork():
 
 if __name__ == '__main__':
     try:
-
         with open('config/all_data.json', "r") as read:
             data = json.loads(read.read()) 
         kwork = Kwork(login=data['kwork.ru']['login'], password=data['kwork.ru']['password'])
@@ -79,5 +78,6 @@ if __name__ == '__main__':
 
     except Exception as e:
         with open(file='error.txt', mode='a+') as write:
-            write.write(f'\nDate: {datetime.datetime.today()} | {str(e)}')
-        print(f'\nDate: {datetime.datetime.today()} | {str(e)}')
+            write.write(f'Date: {datetime.datetime.today()} | {str(e)}\n')
+
+# docker run -it --rm --name kwork-app -v /dev/shm:/dev/shm kwork   
